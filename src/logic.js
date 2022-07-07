@@ -59,7 +59,7 @@ function move(gameState) {
     // Avoid food until we need to eat
     const food = gameState.board.food
 
-    if (gameState.you.health > 25){
+    if (gameState.you.health > 50){
         food.forEach(f => {
             if (myHead.x === f.x - 1 && myHead.y === f.y) {
                 possibleMoves.right = false
@@ -98,7 +98,7 @@ function move(gameState) {
     // TODO: Step 3 - Don't collide with others.
     // Use information in gameState to prevent your Battlesnake from colliding with others.
     const snakes = gameState.board.snakes;
-    
+
     snakes.forEach((s) => {
         const snakeBody= s.body;
 

@@ -43,6 +43,18 @@ function move(gameState) {
     // Use information in gameState to prevent your Battlesnake from moving beyond the boundaries of the board.
     const boardWidth = gameState.board.width
     const boardHeight = gameState.board.height
+    if (myHead.y < 1) {
+        possibleMoves.left = false
+    }
+     else if (myHead.y > boardHeight - 1) {
+        possibleMoves.up = false
+    } else if (myHead.x > boardHeight - 1) {
+        possibleMoves.right = false
+    }
+    else if (myHead.x < 1) {
+        possibleMoves.down = false
+    }
+
 
     // TODO: Step 2 - Don't hit yourself.
     // Use information in gameState to prevent your Battlesnake from colliding with itself.

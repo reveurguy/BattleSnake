@@ -46,10 +46,10 @@ function move(gameState) {
     if (myHead.y < 1) {
         possibleMoves.down = false
     }
-    if (myHead.y < boardHeight) {
+    if (myHead.y >= boardHeight) {
         possibleMoves.up = false
     }
-    if (myHead.x < boardWidth) {
+    if (myHead.x >= boardWidth) {
         possibleMoves.right = false
     }
     if (myHead.x < 1) {

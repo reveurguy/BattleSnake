@@ -81,22 +81,43 @@ function move(gameState) {
     const mybody = gameState.you.body;
 
     mybody.forEach((b) => {
-      if (myHead.x === b.x - 1 && myHead.y === b.y) {
-        possibleMoves.right = false;
-      }
-      if (myHead.x === b.x + 1 && myHead.y === b.y) {
-        possibleMoves.left = false;
-      }
-      if (myHead.y === b.y - 1 && myHead.x === b.x) {
-        possibleMoves.up = false;
-      }
-      if (myHead.y === b.y + 1 && myHead.x === b.x) {
-        possibleMoves.down = false;
-      }
+        if (myHead.x === b.x - 1 && myHead.y === b.y) {
+            possibleMoves.right = false;
+        }
+        if (myHead.x === b.x + 1 && myHead.y === b.y) {
+            possibleMoves.left = false;
+        }
+        if (myHead.y === b.y - 1 && myHead.x === b.x) {
+            possibleMoves.up = false;
+        }
+        if (myHead.y === b.y + 1 && myHead.x === b.x) {
+            possibleMoves.down = false;
+        }
     });
 
     // TODO: Step 3 - Don't collide with others.
     // Use information in gameState to prevent your Battlesnake from colliding with others.
+    const snakes = gameState.board.snakes;
+    
+    snakes.forEach((s) => {
+        const snakeBody= s.body;
+
+        snakeBody.forEach((b) => {
+            if (myHead.x === b.x - 1 && myHead.y === b.y) {
+                possibleMoves.right = false;
+              }
+              if (myHead.x === b.x + 1 && myHead.y === b.y) {
+                possibleMoves.left = false;
+              }
+              if (myHead.y === b.y - 1 && myHead.x === b.x) {
+                possibleMoves.up = false;
+              }
+              if (myHead.y === b.y + 1 && myHead.x === b.x) {
+                possibleMoves.down = false;
+              }
+        });
+    });
+
 
     // TODO: Step 4 - Find food.
     // Use information in gameState to seek out and find food.

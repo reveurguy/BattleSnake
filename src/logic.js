@@ -80,7 +80,7 @@ function move(gameState) {
     // Use information in gameState to prevent your Battlesnake from colliding with itself.
     const mybody = gameState.you.body
 
-        food.forEach(b=> {
+        mybody.forEach(b=> {
             if (myHead.x === b.x - 1 && myHead.y === b.y) {
                 possibleMoves.right = false
             }

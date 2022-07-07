@@ -105,7 +105,7 @@ function move(gameState) {
 
         // Avoid food until we need to eat
 
-    if(Objects.values(possibleMoves).filter(Boolean).length > 1) {
+    if(Object.values(possibleMoves).filter(Boolean).length > 1) {
         const food = gameState.board.food
 
         if (gameState.you.health > 50){

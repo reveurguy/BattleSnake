@@ -56,6 +56,25 @@ function move(gameState) {
         possibleMoves.left = false
     }
 
+    // Avoid food until we need to eat
+    const food = gameState.board.food
+
+    if (gameState.you.health < 25){
+        food.forEach(f => {
+            if (myHead.x === f.x - 1 && myHead.y === f.y) {
+                possibleMoves.right = false
+            }
+            if (myHead.x === f.x + 1 && myHead.y === f.y) {
+                possibleMoves.left = false
+            }
+            if (myHead.y === f.y + 1 && myHead.x === f.x) {
+                possibleMoves.up = false
+            }
+            if (myHead.y === f.y - 1 && myHead.x === f.x) {
+                possibleMoves.down = false
+            }
+        });
+    }
 
     // TODO: Step 2 - Don't hit yourself.
     // Use information in gameState to prevent your Battlesnake from colliding with itself.

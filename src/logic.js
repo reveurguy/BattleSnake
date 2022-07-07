@@ -2,10 +2,10 @@ function info() {
     console.log("INFO")
     const response = {
         apiversion: "1",
-        author: "",
-        color: "#fc5e6a",
-        head: "default",
-        tail: "default"
+        author: "Priyanshu",
+        color: "#75cdfe",
+        head: "all-seeing",
+        tail: "mystic-moon"
     }
     return response
 }
@@ -41,8 +41,8 @@ function move(gameState) {
 
     // TODO: Step 1 - Don't hit walls.
     // Use information in gameState to prevent your Battlesnake from moving beyond the boundaries of the board.
-    // const boardWidth = gameState.board.width
-    // const boardHeight = gameState.board.height
+    const boardWidth = gameState.board.width
+    const boardHeight = gameState.board.height
 
     // TODO: Step 2 - Don't hit yourself.
     // Use information in gameState to prevent your Battlesnake from colliding with itself.

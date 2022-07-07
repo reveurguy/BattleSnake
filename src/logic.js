@@ -56,25 +56,6 @@ function move(gameState) {
         possibleMoves.left = false
     }
 
-    // Avoid food until we need to eat
-    const food = gameState.board.food
-
-    if (gameState.you.health > 50){
-        food.forEach(f => {
-            if (myHead.x === f.x - 1 && myHead.y === f.y) {
-                possibleMoves.right = false
-            }
-            if (myHead.x === f.x + 1 && myHead.y === f.y) {
-                possibleMoves.left = false
-            }
-            if (myHead.y === f.y + 1 && myHead.x === f.x) {
-                possibleMoves.up = false
-            }
-            if (myHead.y === f.y - 1 && myHead.x === f.x) {
-                possibleMoves.down = false
-            }
-        });
-    }
 
     // TODO: Step 2 - Don't hit yourself.
     // Use information in gameState to prevent your Battlesnake from colliding with itself.
@@ -121,6 +102,56 @@ function move(gameState) {
 
     // TODO: Step 4 - Find food.
     // Use information in gameState to seek out and find food.
+
+        // Avoid food until we need to eat
+
+    if(Objects.values(possibleMoves).filter(Boolean).length > 1) {
+        const food = gameState.board.food
+
+        if (gameState.you.health > 50){
+            food.forEach(f => {
+                if (myHead.x === f.x - 1 && myHead.y === f.y) {
+                    possibleMoves.right = false
+                }
+                if (myHead.x === f.x + 1 && myHead.y === f.y) {
+                    possibleMoves.left = false
+                }
+                if (myHead.y === f.y + 1 && myHead.x === f.x) {
+                    possibleMoves.up = false
+                }
+                if (myHead.y === f.y - 1 && myHead.x === f.x) {
+                    possibleMoves.down = false
+                }
+            });
+        } else {
+            food.forEach(f => {
+                if (myHead.x === f.x - 1 && myHead.y === f.y) {
+                    possibleMoves.right = true
+                    possibleMoves.left = false
+                    possibleMoves.up = false
+                    possibleMoves.down = false
+                }
+                if (myHead.x === f.x + 1 && myHead.y === f.y) {
+                    possibleMoves.left = true
+                    possibleMoves.right = false
+                    possibleMoves.up = false
+                    possibleMoves.down = false
+                }
+                if (myHead.y === f.y + 1 && myHead.x === f.x) {
+                    possibleMoves.up = true
+                    possibleMoves.left = false
+                    possibleMoves.down = false
+                    possibleMoves.right = false
+                }
+                if (myHead.y === f.y - 1 && myHead.x === f.x) {
+                    possibleMoves.down = true
+                    possibleMoves.left = false
+                    possibleMoves.up = false
+                    possibleMoves.right = false
+                }
+            });
+        }
+    }
 
     // Finally, choose a move from the available safe moves.
     // TODO: Step 5 - Select a move to make based on strategy, rather than random.

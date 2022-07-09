@@ -108,7 +108,7 @@ function move(gameState) {
     if(Object.values(possibleMoves).filter(Boolean).length > 1) {
         const food = gameState.board.food
 
-        if (gameState.you.health > 50){
+        if (gameState.you.health > 50){{
             food.forEach(f => {
                 if (myHead.x === f.x - 1 && myHead.y === f.y) {
                     possibleMoves.right = true

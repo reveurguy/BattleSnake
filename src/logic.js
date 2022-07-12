@@ -1,3 +1,5 @@
+const food = require('./food')
+
 function info() {
     console.log("INFO")
     const response = {
@@ -25,6 +27,8 @@ function move(gameState) {
         left: true,
         right: true
     }
+
+    const board= gameState.board;
 
     // Step 0: Don't let your Battlesnake move back on its own neck
     const myHead = gameState.you.head
@@ -104,53 +108,66 @@ function move(gameState) {
 
         // Avoid food until we need to eat
 
-    if(Object.values(possibleMoves).filter(Boolean).length > 1) {
-        const food = gameState.board.food
+    // if(Object.values(possibleMoves).filter(Boolean).length > 1) {
+    //     const food = gameState.board.food
 
-        if (gameState.you.health > 10){
-            food.forEach(f => {
-                if (myHead.x === f.x - 1 && myHead.y === f.y) {
-                    possibleMoves.right = false
-                }
-                if (myHead.x === f.x + 1 && myHead.y === f.y) {
-                    possibleMoves.left = false
-                }
-                if (myHead.y === f.y + 1 && myHead.x === f.x) {
-                    possibleMoves.up = false
-                }
-                if (myHead.y === f.y - 1 && myHead.x === f.x) {
-                    possibleMoves.down = false
-                }
-            });
-        } else {
-            food.forEach(f => {
-                if (myHead.x === f.x - 1 && myHead.y === f.y) {
-                    possibleMoves.right = true
-                    possibleMoves.left = false
-                    possibleMoves.up = false
-                    possibleMoves.down = false
-                }
-                if (myHead.x === f.x + 1 && myHead.y === f.y) {
-                    possibleMoves.left = true
-                    possibleMoves.right = false
-                    possibleMoves.up = false
-                    possibleMoves.down = false
-                }
-                if (myHead.y === f.y + 1 && myHead.x === f.x) {
-                    possibleMoves.up = true
-                    possibleMoves.left = false
-                    possibleMoves.down = false
-                    possibleMoves.right = false
-                }
-                if (myHead.y === f.y - 1 && myHead.x === f.x) {
-                    possibleMoves.down = true
-                    possibleMoves.left = false
-                    possibleMoves.up = false
-                    possibleMoves.right = false
-                }
-            });
+    //     if (gameState.you.health > 10){
+    //         food.forEach(f => {
+    //             if (myHead.x === f.x - 1 && myHead.y === f.y) {
+    //                 possibleMoves.right = false
+    //             }
+    //             if (myHead.x === f.x + 1 && myHead.y === f.y) {
+    //                 possibleMoves.left = false
+    //             }
+    //             if (myHead.y === f.y + 1 && myHead.x === f.x) {
+    //                 possibleMoves.up = false
+    //             }
+    //             if (myHead.y === f.y - 1 && myHead.x === f.x) {
+    //                 possibleMoves.down = false
+    //             }
+    //         });
+    //     } else {
+    //         food.forEach(f => {
+    //             if (myHead.x === f.x - 1 && myHead.y === f.y) {
+    //                 possibleMoves.right = true
+    //                 possibleMoves.left = false
+    //                 possibleMoves.up = false
+    //                 possibleMoves.down = false
+    //             }
+    //             if (myHead.x === f.x + 1 && myHead.y === f.y) {
+    //                 possibleMoves.left = true
+    //                 possibleMoves.right = false
+    //                 possibleMoves.up = false
+    //                 possibleMoves.down = false
+    //             }
+    //             if (myHead.y === f.y + 1 && myHead.x === f.x) {
+    //                 possibleMoves.up = true
+    //                 possibleMoves.left = false
+    //                 possibleMoves.down = false
+    //                 possibleMoves.right = false
+    //             }
+    //             if (myHead.y === f.y - 1 && myHead.x === f.x) {
+    //                 possibleMoves.down = true
+    //                 possibleMoves.left = false
+    //                 possibleMoves.up = false
+    //                 possibleMoves.right = false
+    //             }
+    //         });
+    //     }
+    // }
+
+    if(gameState.board.food && gameState.board.food.length ) {
+        const pickups = food.safeMoves(myHead, board);
+
+        if (pickups.length > 0) {
+            let foodMoves = [...new Set(pickups.filter(element => possibleMoves.includes(element)))];
+            if (foodMoves.length > 0)
+            {
+                possibleMoves = [...new Set(foodMoves)];
+            }
         }
     }
+
 
     // Finally, choose a move from the available safe moves.
     // TODO: Step 5 - Select a move to make based on strategy, rather than random.

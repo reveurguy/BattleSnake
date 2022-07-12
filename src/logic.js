@@ -162,21 +162,28 @@ function move(gameState) {
         if (pickups.length > 0) {
             let foodMoves = [...new Set(pickups.filter(element => possibleMoves.includes(element)))];
             if (foodMoves.length > 0)
-            {
                 possibleMoves = [...new Set(foodMoves)];
-            }
         }
     }
 
 
     // Finally, choose a move from the available safe moves.
     // TODO: Step 5 - Select a move to make based on strategy, rather than random.
-    const safeMoves = Object.keys(possibleMoves).filter(key => possibleMoves[key])
-    const response = {
-        move: safeMoves[Math.floor(Math.random() * safeMoves.length)],
+    // const safeMoves = Object.keys(possibleMoves).filter(key => possibleMoves[key])
+    // const response = {
+    //     move: safeMoves[Math.floor(Math.random() * safeMoves.length)],
+    // }
+
+    // console.log(`${gameState.game.id} MOVE ${gameState.turn}: ${response.move}`)
+    // return response
+
+    if (possibleMoves.length > 0) {
+        move = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
     }
 
-    console.log(`${gameState.game.id} MOVE ${gameState.turn}: ${response.move}`)
+    const response = {
+        move: move
+    }
     return response
 }
 

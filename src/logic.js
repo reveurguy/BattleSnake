@@ -1,5 +1,3 @@
-import Grid from './dijkstra';
-
 function info() {
     console.log("INFO")
     const response = {
@@ -102,113 +100,58 @@ function move(gameState) {
     });
 
 
-    const grid = new Grid(gameState, myHead);
-    let chosenPath = [];
-    // Find the closest food
-    gameState.board.food.forEach((food) => {
-        try {
-            const path = grid.findPath(myHead, food);
-            if (!chosenPath.length || path.length < chosenPath.length) {
-                chosenPath = path;
-            }
-        }
-        catch (error) {
-            // console.log(`${gameState.game.id} ${gameState.you.id} no path to food`)
-        }
-    });
-    // Move to my own tail otherwise
-    if (!chosenPath.length) {
-        try {
-            const path = grid.findPath(myHead, gameState.you.body[gameState.you.length - 1]);
-            if (path.length > 1) { // Gotta have space
-                // TODO: Make sure we don't hit our tail right after eating
-                chosenPath = path;
-            }
-        }
-        catch (error) {
-            // console.log(`${gameState.game.id} ${gameState.you.id} no path to my tail`)
-        }
-    }
-    if (chosenPath.length > 1) {
-        const direction = getDirection(myHead, chosenPath[1], gameState);
-        response.move = direction;
-    }
-
-    /*
-    Gets a direction string from the coordinate we receive from dijkstra's function
-*/
-function getDirection(start, key) {
-    const [keyX, keyY] = key.split(',');
-    const end = { x: parseInt(keyX), y: parseInt(keyY) };
-    if (start.x === end.x) {
-        // same row
-        if (start.y + 1 === end.y)
-            return 'up';
-        if (start.y - 1 === end.y)
-            return 'down';
-    }
-    if (start.y === end.y) {
-        // same column
-        if (start.x + 1 === end.x)
-            return 'right';
-        if (start.x - 1 === end.x)
-            return 'left';
-    }
-}
-
-
     // TODO: Step 4 - Find food.
     // Use information in gameState to seek out and find food.
 
-    //     // Avoid food until we need to eat
+        // Avoid food until we need to eat
 
-    // if(Object.values(possibleMoves).filter(Boolean).length > 1) {
-    //     const food = gameState.board.food
+    if(Object.values(possibleMoves).filter(Boolean).length > 1) {
+        const food = gameState.board.food
 
-    //     if (gameState.you.health > 10){
-    //         food.forEach(f => {
-    //             if (myHead.x === f.x - 1 && myHead.y === f.y) {
-    //                 possibleMoves.right = false
-    //             }
-    //             if (myHead.x === f.x + 1 && myHead.y === f.y) {
-    //                 possibleMoves.left = false
-    //             }
-    //             if (myHead.y === f.y + 1 && myHead.x === f.x) {
-    //                 possibleMoves.up = false
-    //             }
-    //             if (myHead.y === f.y - 1 && myHead.x === f.x) {
-    //                 possibleMoves.down = false
-    //             }
-    //         });
-    //     } else {
-    //         food.forEach(f => {
-    //             if (myHead.x === f.x - 1 && myHead.y === f.y) {
-    //                 possibleMoves.right = true
-    //                 possibleMoves.left = false
-    //                 possibleMoves.up = false
-    //                 possibleMoves.down = false
-    //             }
-    //             if (myHead.x === f.x + 1 && myHead.y === f.y) {
-    //                 possibleMoves.left = true
-    //                 possibleMoves.right = false
-    //                 possibleMoves.up = false
-    //                 possibleMoves.down = false
-    //             }
-    //             if (myHead.y === f.y + 1 && myHead.x === f.x) {
-    //                 possibleMoves.up = true
-    //                 possibleMoves.left = false
-    //                 possibleMoves.down = false
-    //                 possibleMoves.right = false
-    //             }
-    //             if (myHead.y === f.y - 1 && myHead.x === f.x) {
-    //                 possibleMoves.down = true
-    //                 possibleMoves.left = false
-    //                 possibleMoves.up = false
-    //                 possibleMoves.right = false
-    //             }
-    //         });
-    //     }
-    // }
+        if (gameState.you.health > 10){
+            food.forEach(f => {
+                if (myHead.x === f.x - 1 && myHead.y === f.y) {
+                    possibleMoves.right = false
+                }
+                if (myHead.x === f.x + 1 && myHead.y === f.y) {
+                    possibleMoves.left = false
+                }
+                if (myHead.y === f.y + 1 && myHead.x === f.x) {
+                    possibleMoves.up = false
+                }
+                if (myHead.y === f.y - 1 && myHead.x === f.x) {
+                    possibleMoves.down = false
+                }
+            });
+        } else {
+            food.forEach(f => {
+                if (myHead.x === f.x - 1 && myHead.y === f.y) {
+                    possibleMoves.right = true
+                    possibleMoves.left = false
+                    possibleMoves.up = false
+                    possibleMoves.down = false
+                }
+                if (myHead.x === f.x + 1 && myHead.y === f.y) {
+                    possibleMoves.left = true
+                    possibleMoves.right = false
+                    possibleMoves.up = false
+                    possibleMoves.down = false
+                }
+                if (myHead.y === f.y + 1 && myHead.x === f.x) {
+                    possibleMoves.up = true
+                    possibleMoves.left = false
+                    possibleMoves.down = false
+                    possibleMoves.right = false
+                }
+                if (myHead.y === f.y - 1 && myHead.x === f.x) {
+                    possibleMoves.down = true
+                    possibleMoves.left = false
+                    possibleMoves.up = false
+                    possibleMoves.right = false
+                }
+            });
+        }
+    }
 
     // Finally, choose a move from the available safe moves.
     // TODO: Step 5 - Select a move to make based on strategy, rather than random.
@@ -220,8 +163,6 @@ function getDirection(start, key) {
     console.log(`${gameState.game.id} MOVE ${gameState.turn}: ${response.move}`)
     return response
 }
-
-
 
 module.exports = {
     info: info,

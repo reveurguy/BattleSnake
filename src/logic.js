@@ -153,19 +153,6 @@ function move(gameState) {
         }
     }
 
-
-    const head = gameState.you.body[0];
-    const neck = gameState.you.body[1];
-    const moves = ['up', 'down', 'left', 'right'];
-
-    for (const move of moves) {
-        const coord = moveAsCoord(move, head);
-        if (!offBoard(gameState, coord) &&
-        !coordEqual(coord, neck)) {
-        return {move: move};
-        }
-    }
-
     // Finally, choose a move from the available safe moves.
     // TODO: Step 5 - Select a move to make based on strategy, rather than random.
     const safeMoves = Object.keys(possibleMoves).filter(key => possibleMoves[key])
@@ -176,10 +163,6 @@ function move(gameState) {
     console.log(`${gameState.game.id} MOVE ${gameState.turn}: ${response.move}`)
     return response
 }
-
-function coordEqual(a, b) {
-    return a.x === b.x && a.y === b.y;
-  }
 
 module.exports = {
     info: info,

@@ -10,10 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/BattlesnakeOfficial/starter-snake-javascript.git"
   },
-  "author": "BattlesnakeOfficial",
+  "author": "Priyanshu Singh",
   "license": "MIT",
   "homepage": "https://github.com/BattlesnakeOfficial/starter-snake-javascript#readme",
   "dependencies": {
+    "dijkstrajs": "^1.0.2",
     "express": "^4.17.1"
   },
   "devDependencies": {

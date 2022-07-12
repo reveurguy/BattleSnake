@@ -77,24 +77,25 @@ function move(gameState) {
     });
 
     // TODO: Step 3 - Don't collide with others.
-    //              - Don't hit yourself.
     // Use information in gameState to prevent your Battlesnake from colliding with others.
-    const allSnakes = gameState.board.snakes;
+    const snakes = gameState.board.snakes;
 
     snakes.forEach((s) => {
         const snakeBody= s.body;
 
-        snakeBody.forEach((coord, i) => {
-            if (i === snakeBody.length - 1) return // You can move onto people's tails
-            if (coord.x === myHead.x - 1 && coord.y === myHead.y) {
-                possibleMoves.left = 0
-            } else if (coord.x === myHead.x + 1 && coord.y === myHead.y) {
-                possibleMoves.right = 0
-            } else if (coord.y === myHead.y - 1 && coord.x === myHead.x) {
-                possibleMoves.down = 0
-            } else if (coord.y === myHead.y + 1 && coord.x === myHead.x) {
-                possibleMoves.up = 0
-            }
+        snakeBody.forEach((b) => {
+            if (myHead.x === b.x - 1 && myHead.y === b.y) {
+                possibleMoves.right = false;
+              }
+              if (myHead.x === b.x + 1 && myHead.y === b.y) {
+                possibleMoves.left = false;
+              }
+              if (myHead.y === b.y - 1 && myHead.x === b.x) {
+                possibleMoves.up = false;
+              }
+              if (myHead.y === b.y + 1 && myHead.x === b.x) {
+                possibleMoves.down = false;
+              }
         });
     });
 

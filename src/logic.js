@@ -66,7 +66,7 @@ function move(gameState) {
     const mybody = gameState.you.body;
 
     mybody.forEach((b) => {
-        console.log("before",myHead.x, b.x)
+        console.log("before",{myHead}, {b})
         if (myHead.x === b.x - 1 && myHead.y === b.y) {
             possibleMoves.right = false;
         }

@@ -64,6 +64,7 @@ function move(gameState) {
     // TODO: Step 2 - Don't hit yourself.
     // Use information in gameState to prevent your Battlesnake from colliding with itself.
     const mybody = gameState.you.body;
+    console.log(mybody)
 
     // mybody.forEach((b) => {
     //     console.log("before",myHead,b)

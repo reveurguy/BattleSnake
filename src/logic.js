@@ -66,21 +66,29 @@ function move(gameState) {
     const mybody = gameState.you.body;
     console.log(mybody)
 
-    // mybody.forEach((b) => {
-    //     console.log("before",myHead,b)
-    //     if (myHead.x === b.x - 1 && myHead.y === b.y) {
-    //         possibleMoves.right = false;
-    //     }
-    //     if (myHead.x === b.x + 1 && myHead.y === b.y) {
-    //         possibleMoves.left = false;
-    //     }
-    //     if (myHead.y === b.y - 1 && myHead.x === b.x) {
-    //         possibleMoves.up = false;
-    //     }
-    //     if (myHead.y === b.y + 1 && myHead.x === b.x) {
-    //         possibleMoves.down = false;
-    //     }
-    // });
+    mybody.forEach((b) => {
+        if (myHead.x === b.x - 1 && myHead.y === b.y) {
+            possibleMoves.right = false;
+        }
+        if (myHead.x === b.x + 1 && myHead.y === b.y) {
+            possibleMoves.left = false;
+        }
+        if (myHead.y === b.y - 1 && myHead.x === b.x) {
+            possibleMoves.up = false;
+        }
+        if (myHead.y === b.y + 1 && myHead.x === b.x) {
+            possibleMoves.down = false;
+        }
+
+        if(myHead.x === b.x - 2 && myHead.y === b.y + 2) {
+            possibleMoves.left = false;
+            possibleMoves.up = false;
+        }
+        if(myHead.x === b.x + 2 && myHead.y === b.y - 1) {
+            possibleMoves.right = false;
+            possibleMoves.down = false;
+        }
+    });
 
     // TODO: Step 3 - Don't collide with others.
     // Use information in gameState to prevent your Battlesnake from colliding with others.

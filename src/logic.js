@@ -66,9 +66,11 @@ function move(gameState) {
     const mybody = gameState.you.body;
 
     mybody.forEach((b) => {
+        console.log(myHead.x, b.x)
         if (myHead.x === b.x - 1 && myHead.y === b.y) {
             possibleMoves.right = false;
         }
+        console.log(myHead.x, b.x)
         if (myHead.x === b.x + 1 && myHead.y === b.y) {
             possibleMoves.left = false;
         }
@@ -163,8 +165,8 @@ function move(gameState) {
     const response = {
         move: safeMoves[Math.floor(Math.random() * safeMoves.length)],
     }
-    console.log(gameState.board)
-    console.log(`${gameState.game.id} MOVE ${gameState.turn}: ${response.move}`)
+    // console.log(gameState.board)
+    // console.log(`${gameState.game.id} MOVE ${gameState.turn}: ${response.move}`)
     return response
 }
 

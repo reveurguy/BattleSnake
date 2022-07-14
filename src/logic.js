@@ -64,7 +64,6 @@ function move(gameState) {
     // TODO: Step 2 - Don't hit yourself.
     // Use information in gameState to prevent your Battlesnake from colliding with itself.
     const mybody = gameState.you.body;
-    console.log(mybody)
 
     mybody.forEach((b) => {
         if (myHead.x === b.x - 1 && myHead.y === b.y) {
@@ -77,15 +76,6 @@ function move(gameState) {
             possibleMoves.up = false;
         }
         if (myHead.y === b.y + 1 && myHead.x === b.x) {
-            possibleMoves.down = false;
-        }
-
-        if(myHead.x === b.x - 2 && myHead.y === b.y + 2) {
-            possibleMoves.left = false;
-            possibleMoves.up = false;
-        }
-        if(myHead.x === b.x + 2 && myHead.y === b.y - 1) {
-            possibleMoves.right = false;
             possibleMoves.down = false;
         }
     });

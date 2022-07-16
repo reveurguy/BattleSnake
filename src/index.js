@@ -1,5 +1,6 @@
 const express = require('express')
 const { info, start, move, end } = require('./logic')
+const http = require('http')
 
 const app = express()
 app.use(express.json())
@@ -30,3 +31,7 @@ app.post("/end", (req, res) => {
 app.listen(port, () => {
     console.log(`Starting Battlesnake Server at http://0.0.0.0:${port}...`)
 })
+
+setInterval(() => {
+  http.get("http://rev-battlesnake.herokuapp.com/");
+}, 5 * 60 * 1000); // every 5 minutes

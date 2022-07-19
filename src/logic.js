@@ -106,55 +106,83 @@ function move(gameState) {
     // TODO: Step 4 - Find food.
     // Use information in gameState to seek out and find food.
 
-    // Avoid food until we need to eat
+    let temp = [];
+    for(let y = 0; y < gameState.board.food.length; y++) {
+        const pickup = gameState.board.food[y];
 
-    if(Object.values(possibleMoves).filter(Boolean).length > 1) {
-        const food = gameState.board.food
+        if(pickup.x < myHead.x) {
+            temp.push({dir: "left", dist: myHead.x - pickup.x});
+        }
+        else if(pickup.x > myHead.x) {
+            temp.push({dir: "right", dist: pickup.x - myHead.x});
+        }
 
-        if (gameState.you.health > 10){
-            food.forEach(f => {
-                if (myHead.x === f.x - 1 && myHead.y === f.y) {
-                    possibleMoves.right = false
-                }
-                if (myHead.x === f.x + 1 && myHead.y === f.y) {
-                    possibleMoves.left = false
-                }
-                if (myHead.y === f.y + 1 && myHead.x === f.x) {
-                    possibleMoves.up = false
-                }
-                if (myHead.y === f.y - 1 && myHead.x === f.x) {
-                    possibleMoves.down = false
-                }
-            });
-        } else {
-            food.forEach(f => {
-                if (myHead.x === f.x - 1 && myHead.y === f.y) {
-                    possibleMoves.right = true
-                    possibleMoves.left = false
-                    possibleMoves.up = false
-                    possibleMoves.down = false
-                }
-                if (myHead.x === f.x + 1 && myHead.y === f.y) {
-                    possibleMoves.left = true
-                    possibleMoves.right = false
-                    possibleMoves.up = false
-                    possibleMoves.down = false
-                }
-                if (myHead.y === f.y + 1 && myHead.x === f.x) {
-                    possibleMoves.up = true
-                    possibleMoves.left = false
-                    possibleMoves.down = false
-                    possibleMoves.right = false
-                }
-                if (myHead.y === f.y - 1 && myHead.x === f.x) {
-                    possibleMoves.down = true
-                    possibleMoves.left = false
-                    possibleMoves.up = false
-                    possibleMoves.right = false
-                }
-            });
+        if(pickup.y < myHead.y) {
+            temp.push({dir: "down", dist: myHead.y - pickup.y});
+        }
+        else if(pickup.y > myHead.y) {
+            temp.push({dir: "up", dist: pickup.y - myHead.y});
         }
     }
+
+    if(temp.length > 0)
+    {
+        temp.sort((a, b) => {
+            return a.dist - b.dist;
+        });
+    }
+
+    possibleMoves = temp.map(move => move.dir);
+
+    // Avoid food until we need to eat
+
+    // if(Object.values(possibleMoves).filter(Boolean).length > 1) {
+    //     const food = gameState.board.food
+
+    //     if (gameState.you.health > 10){
+    //         food.forEach(f => {
+    //             if (myHead.x === f.x - 1 && myHead.y === f.y) {
+    //                 possibleMoves.right = false
+    //             }
+    //             if (myHead.x === f.x + 1 && myHead.y === f.y) {
+    //                 possibleMoves.left = false
+    //             }
+    //             if (myHead.y === f.y + 1 && myHead.x === f.x) {
+    //                 possibleMoves.up = false
+    //             }
+    //             if (myHead.y === f.y - 1 && myHead.x === f.x) {
+    //                 possibleMoves.down = false
+    //             }
+    //         });
+    //     } else {
+    //         food.forEach(f => {
+    //             if (myHead.x === f.x - 1 && myHead.y === f.y) {
+    //                 possibleMoves.right = true
+    //                 possibleMoves.left = false
+    //                 possibleMoves.up = false
+    //                 possibleMoves.down = false
+    //             }
+    //             if (myHead.x === f.x + 1 && myHead.y === f.y) {
+    //                 possibleMoves.left = true
+    //                 possibleMoves.right = false
+    //                 possibleMoves.up = false
+    //                 possibleMoves.down = false
+    //             }
+    //             if (myHead.y === f.y + 1 && myHead.x === f.x) {
+    //                 possibleMoves.up = true
+    //                 possibleMoves.left = false
+    //                 possibleMoves.down = false
+    //                 possibleMoves.right = false
+    //             }
+    //             if (myHead.y === f.y - 1 && myHead.x === f.x) {
+    //                 possibleMoves.down = true
+    //                 possibleMoves.left = false
+    //                 possibleMoves.up = false
+    //                 possibleMoves.right = false
+    //             }
+    //         });
+    //     }
+    // }
 
 
     // Finally, choose a move from the available safe moves.

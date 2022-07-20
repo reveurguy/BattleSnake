@@ -133,7 +133,8 @@ function move(gameState) {
         });
     }
 
-    const pickups = [...new Set(temp.map(move => move.dir))];
+    possibleMoves = [...new Set(temp.map(move => move.dir))];
+    const pickups = possibleMoves;
 
         if (pickups.length > 0) {
             let foodMoves = [...new Set(pickups.filter(element => possibleMoves.includes(element)))];

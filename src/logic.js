@@ -133,8 +133,16 @@ function move(gameState) {
         });
     }
 
-    possibleMoves = {...new Set(temp.map(move => move.dir))};
-    console.log("possible moves updated: ", possibleMoves)
+    const pickups = [...new Set(temp.map(move => move.dir))];
+
+        if (pickups.length > 0) {
+            let foodMoves = [...new Set(pickups.filter(element => possibleMoves.includes(element)))];
+            if (foodMoves.length > 0)
+            {
+                possibleMoves = [...new Set(foodMoves)];
+            }
+        }
+
 
 
     // Avoid food until we need to eat

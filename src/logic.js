@@ -27,6 +27,7 @@ function move(gameState) {
         left: true,
         right: true
     }
+    console.log("possible moves: ", possibleMoves)
 
     const board= gameState.board;
 
@@ -132,7 +133,8 @@ function move(gameState) {
         });
     }
 
-    possibleMoves = [...new Set(temp.map(move => move.dir))];
+    possibleMoves = {...new Set(temp.map(move => move.dir))};
+    console.log("possible moves updated: ", possibleMoves)
 
 
     // Avoid food until we need to eat

@@ -107,45 +107,6 @@ function move(gameState) {
     // TODO: Step 4 - Find food.
     // Use information in gameState to seek out and find food.
 
-    let temp = [];
-    for(let y = 0; y < board.food.length; y++) {
-        const pickup = board.food[y];
-
-        if(pickup.x < myHead.x) {
-            temp.push({dir: "left", dist: myHead.x - pickup.x});
-        }
-        else if(pickup.x > myHead.x) {
-            temp.push({dir: "right", dist: pickup.x - myHead.x});
-        }
-
-        if(pickup.y < myHead.y) {
-            temp.push({dir: "down", dist: myHead.y - pickup.y});
-        }
-        else if(pickup.y > myHead.y) {
-            temp.push({dir: "up", dist: pickup.y - myHead.y});
-        }
-    }
-
-    if(temp.length > 0)
-    {
-        temp.sort((a, b) => {
-            return a.dist - b.dist;
-        });
-    }
-
-    possibleMoves = [...new Set(temp.map(move => move.dir))];
-    const pickups = possibleMoves;
-
-        if (pickups.length > 0) {
-            let foodMoves = [...new Set(pickups.filter(element => possibleMoves.includes(element)))];
-            if (foodMoves.length > 0)
-            {
-                possibleMoves = [...new Set(foodMoves)];
-            }
-        }
-
-
-
     // Avoid food until we need to eat
 
     // if(Object.values(possibleMoves).filter(Boolean).length > 1) {

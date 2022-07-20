@@ -133,6 +133,7 @@ function move(gameState) {
     }
 
     possibleMoves = temp.map(move => move.dir);
+    console.log(possibleMoves)
 
     // Avoid food until we need to eat
 
